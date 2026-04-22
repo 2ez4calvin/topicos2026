@@ -1,0 +1,13 @@
+<h1>Example#test</h1>
+<p>Find me in app/views/example/test.html.erb</p>
+<% (0..5).each do |i| %>
+    <%="#{i}, " %>
+<% end %>
+
+<p>The current time is:
+<%= @current_time%>
+</p>
+
+<%=render partial: "shared/footer", locals: {start_year: '2000'} %>
+
+<% console %>
