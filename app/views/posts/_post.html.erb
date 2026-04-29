@@ -1,0 +1,9 @@
+  <p>
+    <strong>post.name</strong
+    <%= post.body %>
+    <%= link_to 'Delete', [post],
+                  data: {
+                    "turbo-method": :delete,
+                    "turbo-confirm": "Are you sure?"
+                  } %>
+  </p>
