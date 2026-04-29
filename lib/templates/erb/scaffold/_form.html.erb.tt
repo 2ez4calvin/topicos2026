@@ -1,9 +1,9 @@
-<%%= form_with(model: <%= model_resource_name %>) do |form| %>
-  <%% if <%= singular_table_name %>.errors.any? %>
-    <div style="color: red">
-      <h2><%%= pluralize(<%= singular_table_name %>.errors.count, "error") %> prohibited this <%= singular_table_name %> from being saved:</h2>
+<%%= form_with(model: <%= singular_table_name %>, class: "needs-validation") do |form| %>
 
-      <ul>
+  <%% if <%= singular_table_name %>.errors.any? %>
+    <div class="alert alert-danger">
+      <h6 class="fw-bold"><%%= pluralize(<%= singular_table_name %>.errors.count, "erro") %> impediram o salvamento:</h6>
+      <ul class="mb-0">
         <%% <%= singular_table_name %>.errors.each do |error| %>
           <li><%%= error.full_message %></li>
         <%% end %>
@@ -11,27 +11,35 @@
     </div>
   <%% end %>
 
-<% attributes.each do |attribute| -%>
-  <div>
-<% if attribute.password_digest? -%>
-    <%%= form.label :password, style: "display: block" %>
-    <%%= form.password_field :password %>
-  </div>
-
-  <div>
-    <%%= form.label :password_confirmation, style: "display: block" %>
-    <%%= form.password_field :password_confirmation %>
-<% elsif attribute.attachments? -%>
-    <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
-    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+<% attributes.each do |attr| -%>
+  <div class="mb-3">
+    <%%= form.label :<%= attr.name %>, class: "form-label fw-semibold" %>
+<% if attr.type == :text -%>
+    <%%= form.text_area :<%= attr.name %>, class: "form-control #{"is-invalid" if <%= singular_table_name %>.errors[:<%= attr.name %>].any?}", rows: 4 %>
+<% elsif attr.type == :boolean -%>
+    <div class="form-check">
+      <%%= form.check_box :<%= attr.name %>, class: "form-check-input" %>
+    </div>
+<% elsif attr.type == :date -%>
+    <%%= form.date_field :<%= attr.name %>, class: "form-control #{"is-invalid" if <%= singular_table_name %>.errors[:<%= attr.name %>].any?}" %>
+<% elsif attr.type == :datetime -%>
+    <%%= form.datetime_field :<%= attr.name %>, class: "form-control #{"is-invalid" if <%= singular_table_name %>.errors[:<%= attr.name %>].any?}" %>
+<% elsif attr.type == :integer || attr.type == :float || attr.type == :decimal -%>
+    <%%= form.number_field :<%= attr.name %>, class: "form-control #{"is-invalid" if <%= singular_table_name %>.errors[:<%= attr.name %>].any?}" %>
 <% else -%>
-    <%%= form.label :<%= attribute.column_name %>, style: "display: block" %>
-    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %> %>
+    <%%= form.text_field :<%= attr.name %>, class: "form-control #{"is-invalid" if <%= singular_table_name %>.errors[:<%= attr.name %>].any?}" %>
 <% end -%>
+    <%% if <%= singular_table_name %>.errors[:<%= attr.name %>].any? %>
+      <div class="invalid-feedback d-block">
+        <%%= <%= singular_table_name %>.errors[:<%= attr.name %>].join(", ") %>
+      </div>
+    <%% end %>
   </div>
 
 <% end -%>
-  <div>
-    <%%= form.submit %>
+  <div class="d-flex gap-2 mt-4">
+    <%%= form.submit class: "btn btn-primary" %>
+    <%%= link_to "Cancelar", <%= index_helper %>_path, class: "btn btn-outline-secondary" %>
   </div>
+
 <%% end %>

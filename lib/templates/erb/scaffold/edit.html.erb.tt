@@ -1,12 +1,15 @@
-<%% content_for :title, "Editing <%= human_name.downcase %>" %>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 fw-bold">Editar <%= human_name %></h1>
+    <div>
+      <%%= link_to "Ver", @<%= singular_table_name %>, class: "btn btn-outline-info me-2" %>
+      <%%= link_to "Voltar", <%= index_helper %>_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
 
-<h1>Editing <%= human_name.downcase %></h1>
-
-<%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
-
-<br>
-
-<div>
-  <%%= link_to "Show this <%= human_name.downcase %>", <%= model_resource_name(prefix: "@") %> %> |
-  <%%= link_to "Back to <%= human_name.pluralize.downcase %>", <%= index_helper(type: :path) %> %>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
+    </div>
+  </div>
 </div>

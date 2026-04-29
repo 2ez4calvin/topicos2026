@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :genres
   devise_for :users
 root to: "posts#index" #Rota configurada para a página inicial do site, que exibe a lista de posts., reconfigurar para a home depois
 
