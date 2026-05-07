@@ -2,16 +2,290 @@
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
  */
 
- @import "bootstrap";
+@import "bootstrap";
+
+:root {
+    --bg-base: #FAF8F2;
+    --bg-surface: #F0ECD9;
+    --bg-elevated: #E2DBBF;
+    --accent: #B8860B;
+    --accent-soft: #D4A017;
+    --accent-hover: #9a6f09;
+    --text-primary: #1A1710;
+    --text-muted: #6B6448;
+    --shadow-color: rgba(90, 70, 10, 0.10);
+    --shadow-card: 0 2px 16px var(--shadow-color);
+    --radius: 10px;
+    --transition: 200ms ease;
+
+    --bs-body-bg: var(--bg-base);
+    --bs-body-color: var(--text-primary);
+    --bs-secondary-color: var(--text-muted);
+    --bs-primary: var(--accent);
+    --bs-primary-rgb: 184, 134, 11;
+    --bs-border-color: var(--bg-elevated);
+    --bs-card-bg: var(--bg-surface);
+}
+
+html.dark {
+    --bg-base: #0D0D0F;
+    --bg-surface: #1A1A20;
+    --bg-elevated: #26262E;
+    --accent: #E6B84A;
+    --accent-soft: #F0D080;
+    --accent-hover: #f5c84e;
+    --text-primary: #FFFFFF;
+    --text-muted: #9A9A9A;
+    --shadow-color: rgba(0, 0, 0, 0.35);
+
+    --bs-body-bg: var(--bg-base);
+    --bs-body-color: var(--text-primary);
+    --bs-secondary-color: var(--text-muted);
+    --bs-primary: var(--accent);
+    --bs-primary-rgb: 230, 184, 74;
+    --bs-border-color: var(--bg-elevated);
+    --bs-card-bg: var(--bg-surface);
+}
+
+
+html {
+    transition: background-color var(--transition), color var(--transition);
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+
+.header {
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--bg-elevated);
+    padding: 0.75rem 0;
+    box-shadow: 0 1px 8px var(--shadow-color);
+    transition: background-color var(--transition), border-color var(--transition);
+    color: var(--text-primary);
+    --bs-navbar-brand-color: var(--text-primary);
+
+    .nav-home {
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        transition: color var(--transition);
+
+        &:hover {
+            color: var(--accent);
+        }
+    }
+}
+
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--bg-elevated);
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition), transform 0.15s ease;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+
+    &:hover {
+        background-color: var(--bg-elevated);
+        border-color: var(--accent);
+        transform: scale(1.08);
+    }
+
+    .theme-icon {
+        display: none;
+    }
+}
+
+
+html:not(.dark) .theme-toggle .theme-icon--sun {
+    display: inline;
+}
+
+html.dark .theme-toggle .theme-icon--moon {
+    display: inline;
+}
+
+.app-main {
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+}
+
+.app-container {
+    max-width: 860px;
+}
+
+
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+    letter-spacing: -0.01em;
+}
+
+.page-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.btn-accent {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    letter-spacing: 0.01em;
+    transition: background-color var(--transition), transform 0.12s ease;
+    text-decoration: none;
+
+    &:hover {
+        background-color: var(--accent-hover);
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .btn-icon {
+        font-size: 1rem;
+        line-height: 1;
+    }
+}
+
+
+.app-alert {
+    border-radius: var(--radius);
+    border: none;
+    padding: 0.8rem 1.1rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &--success {
+        background-color: color-mix(in srgb, var(--accent) 12%, var(--bg-surface));
+        color: var(--text-primary);
+        border-left: 3px solid var(--accent);
+    }
+
+    .alert-icon {
+        font-weight: 700;
+        color: var(--accent);
+    }
+}
+
+.app-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-elevated);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: background-color var(--transition), border-color var(--transition);
+}
+
+.app-table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: var(--bg-base);
+    --bs-table-hover-bg: color-mix(in srgb, var(--accent) 8%, var(--bg-surface));
+    --bs-table-border-color: var(--bg-elevated);
+    color: var(--text-primary);
+    margin-bottom: 0;
+
+    thead tr {
+        border-bottom: 2px solid var(--bg-elevated);
+
+        th {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            padding: 0.85rem 1.1rem;
+            background-color: var(--bg-elevated);
+        }
+    }
+
+    tbody tr {
+        transition: background-color 0.12s ease;
+        border-bottom: 1px solid var(--bg-elevated);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background-color: var(--bs-table-hover-bg);
+        }
+
+        td {
+            padding: 0.8rem 1.1rem;
+            color: var(--text-primary);
+        }
+    }
+
+    .genre-title {
+        font-weight: 500;
+    }
+}
+
+
+.btn-action {
+    border-radius: 6px;
+    padding: 0.28rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-width: 1.5px;
+    transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+
+    &--info {
+        color: #0891b2;
+        border-color: #0891b2;
+
+        &:hover {
+            background-color: #0891b2;
+            color: #fff;
+        }
+    }
+
+    &--warn {
+        color: var(--accent-soft);
+        border-color: var(--accent-soft);
+
+        &:hover {
+            background-color: var(--accent-soft);
+            color: var(--text-primary);
+        }
+    }
+
+    &--danger {
+        color: #e53e3e;
+        border-color: #e53e3e;
+
+        &:hover {
+            background-color: #e53e3e;
+            color: #fff;
+        }
+    }
+}

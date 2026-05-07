@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  get "home/index"
+  get '/home', to: redirect('/')
   resources :genres
   devise_for :users
-root to: "posts#index" #Rota configurada para a página inicial do site, que exibe a lista de posts., reconfigurar para a home depois
+root to: "home#index"
 
-  resources :comments
-  resources :posts
+
   get "example/test"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,6 +17,4 @@ root to: "posts#index" #Rota configurada para a página inicial do site, que exi
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

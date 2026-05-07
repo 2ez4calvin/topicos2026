@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg header">
+    <div class="container-fluid">
+        <a class="navbar-brand app-brand" href="<%= root_path %>">
+          <span class="brand-dot"></span>
+            <%= content_for(:title) || "App" %>
+        </a>
+        <div class="navbar-nav ms-auto flex-row align-items-center gap-3">
+            <a class="nav-link nav-home" aria-current="page" href="<%= root_path %>">
+                Home</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema" title="Alternar modo escuro/claro">
+                <span class="theme-icon theme-icon--sun">☀︎</span>
+                <span class="theme-icon theme-icon--moon">☽</span>
+            </button>
+        </div>
+    </div>
+</nav>
