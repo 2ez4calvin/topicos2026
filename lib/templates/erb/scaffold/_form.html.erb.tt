@@ -1,13 +1,16 @@
 <%%= form_with(model: <%= singular_table_name %>, class: "needs-validation") do |form| %>
 
   <%% if <%= singular_table_name %>.errors.any? %>
-    <div class="alert alert-danger">
-      <h6 class="fw-bold"><%%= pluralize(<%= singular_table_name %>.errors.count, "erro") %> impediram o salvamento:</h6>
-      <ul class="mb-0">
-        <%% <%= singular_table_name %>.errors.each do |error| %>
-          <li><%%= error.full_message %></li>
-        <%% end %>
-      </ul>
+    <div class="app-alert app-alert--danger mb-4">
+      <span class="alert-icon">✕</span>
+      <div>
+        <h6 class="fw-bold mb-1"><%%= pluralize(<%= singular_table_name %>.errors.count, "erro") %> impediram o salvamento:</h6>
+        <ul class="mb-0">
+          <%% <%= singular_table_name %>.errors.each do |error| %>
+            <li><%%= error.full_message %></li>
+          <%% end %>
+        </ul>
+      </div>
     </div>
   <%% end %>
 
@@ -38,8 +41,8 @@
 
 <% end -%>
   <div class="d-flex gap-2 mt-4">
-    <%%= form.submit class: "btn btn-primary" %>
-    <%%= link_to "Cancelar", <%= index_helper %>_path, class: "btn btn-outline-secondary" %>
+    <%%= form.submit class: "btn btn-accent" %>
+    <%%= link_to "Cancelar", <%= index_helper %>_path, class: "btn btn-sm btn-action btn-action--secondary" %>
   </div>
 
 <%% end %>

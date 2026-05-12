@@ -21,7 +21,7 @@ function applyTheme(theme) {
 
 applyTheme(getInitialTheme());
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('turbo:load', function () {
     const btn = document.getElementById('theme-toggle');
     if (!btn) return;
 
